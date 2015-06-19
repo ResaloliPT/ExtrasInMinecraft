@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ExtrasInMinecraft",
+  "name": "Extras In Minecraft",
+  "description": "More Stuff To Minecraft!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ResaloliPT"],
+  "credits": "None YET!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
