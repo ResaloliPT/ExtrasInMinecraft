@@ -1,6 +1,6 @@
 package com.resaloli.eim.content.container;
 
-import com.resaloli.eim.content.blocks.Blocks;
+import com.resaloli.eim.content.blocks.EIMBlocks;
 import com.resaloli.eim.content.crafting.CraftingManagerDCT;
 import com.resaloli.eim.content.slot.DCTCrafting;
 import com.resaloli.eim.content.slot.DCTSlot;
@@ -84,7 +84,7 @@ public class ContainerDCT extends Container{
 	@Override
     public boolean canInteractWith(EntityPlayer entityplayer)
     {
-        return this.worldObj.getBlockState(this.pos).getBlock() != Blocks.dualCraftingTable ? false : invPlayer.player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getBlockState(this.pos).getBlock() != EIMBlocks.dualCraftingTable ? false : invPlayer.player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override

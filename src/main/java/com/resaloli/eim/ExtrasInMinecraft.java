@@ -1,6 +1,7 @@
 package com.resaloli.eim;
 
 import com.resaloli.eim.content.gui.*;
+import com.resaloli.eim.content.recipes.Recipes;
 import com.resaloli.eim.content.te.*;
 import com.resaloli.eim.content.blocks.*;
 import com.resaloli.eim.proxies.*;
@@ -60,7 +61,7 @@ public class ExtrasInMinecraft{
   {
 	  System.out.println("PreIniting EIM");
 	  ProxyClient.registerProxies();
-	  Blocks.preinit();
+	  EIMBlocks.preinit();
 	  GameRegistry.registerTileEntity(TileEntityDCT.class, "TileEntitydualCraftingTable");
 	  
   }
@@ -72,6 +73,7 @@ public class ExtrasInMinecraft{
 	  MinecraftForge.EVENT_BUS.register(proxy);
 	  NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
 	  ProxyClient.registerRender();
+	  Recipes.initRecipes();
   }
   
   @Mod.EventHandler

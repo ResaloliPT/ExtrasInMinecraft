@@ -35,6 +35,7 @@ public class CraftingManagerDCT
     	recipes = new ArrayList();
     	recipes.addAll(CraftingManager.getInstance().getRecipeList());
     	Recipes.addRecipes(this);
+    	Recipes.addVanillas(this);
     	
 		Collections.sort(this.recipes, new DCTRecipeSorter(this));
         System.out.println(this.recipes.size() + " recipes");
@@ -188,10 +189,7 @@ public class CraftingManagerDCT
 
         return var5;
     }
-
-    /**
-     * returns the List<> of all recipes
-     */
+    
     public List getRecipeList()
     {
         return this.recipes;
