@@ -1,4 +1,4 @@
-package com.resaloli.eim.content.slot;
+package com.resaloli.eim.content.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

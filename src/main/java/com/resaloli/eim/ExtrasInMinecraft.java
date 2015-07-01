@@ -3,6 +3,7 @@ package com.resaloli.eim;
 import com.resaloli.eim.content.gui.*;
 import com.resaloli.eim.content.recipes.Recipes;
 import com.resaloli.eim.content.te.*;
+import com.resaloli.eim.content.Event.EventHandler;
 import com.resaloli.eim.content.blocks.*;
 import com.resaloli.eim.proxies.*;
 
@@ -54,7 +55,6 @@ public class ExtrasInMinecraft{
 	public static final int GUIDdualCraftingTable = 0;
 		
 	//Inits
-	public TileEntityDCT TileEntitydualCraftingTable = new TileEntityDCT();
   
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent paramFMLPreInitializationEvent)
@@ -80,7 +80,7 @@ public class ExtrasInMinecraft{
   public void postInit(FMLPostInitializationEvent paramFMLPostInitializationEvent)
   {
 	  System.out.println("PostIniting EIM");
-	  
+	  MinecraftForge.EVENT_BUS.register(new EventHandler());
 	  System.out.println("Extras In Minecraft Ready to launch!!");
 	  
   }

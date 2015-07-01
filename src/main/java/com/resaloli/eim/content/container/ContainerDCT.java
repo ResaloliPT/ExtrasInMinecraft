@@ -1,10 +1,6 @@
 package com.resaloli.eim.content.container;
 
-import com.resaloli.eim.content.blocks.EIMBlocks;
-import com.resaloli.eim.content.crafting.CraftingManagerDCT;
-import com.resaloli.eim.content.slot.DCTCrafting;
-import com.resaloli.eim.content.slot.DCTSlot;
-import com.resaloli.eim.content.te.TileEntityDCT;
+import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,18 +12,30 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import com.resaloli.eim.content.blocks.EIMBlocks;
+import com.resaloli.eim.content.crafting.CraftingManagerDCT;
+import com.resaloli.eim.content.inventory.DCTCrafting;
+import com.resaloli.eim.content.inventory.DCTSlot;
+import com.resaloli.eim.content.te.TileEntityDCT;
 
 public class ContainerDCT extends Container{
 
 	//Vars
+	public ItemStack[] inventory = new ItemStack[25];
     public InventoryCrafting craftMatrix;
     public IInventory craftResult;
     public World worldObj;
     public BlockPos pos;
     public InventoryPlayer invPlayer;
+    public TileEntityDCT tileEntity = new TileEntityDCT();
     
     //Contructer
     public ContainerDCT(InventoryPlayer playerInventory, TileEntityDCT tileEntity) {
+    	
     	 craftMatrix = new InventoryCrafting(this, 5, 5);
          craftResult = new InventoryCraftResult();
          worldObj = tileEntity.getWorld();
@@ -64,21 +72,27 @@ public class ContainerDCT extends Container{
          onCraftMatrixChanged(craftMatrix);
 	}
 
-    @Override
+    public ContainerDCT() {}
+
+	@Override
 	public void onCraftMatrixChanged(IInventory iinventory)
     {
         craftResult.setInventorySlotContents(0, CraftingManagerDCT.getInstance().findMatchingRecipe(craftMatrix, worldObj));
-        markBlockForUpdate();
     }
-	
-    public void markBlockForUpdate() {
-    	worldObj.markBlockForUpdate(pos);
-	}
 
+	public void getInventoryItemStacks() {
+		for(int i = 0; i < 25; i++){
+			if(craftMatrix.getStackInSlot(i) != null){
+				inventory[i] = craftMatrix.getStackInSlot(i);
+			}
+		}
+		tileEntity.inventory.equals(inventory);
+		
+	}
+	
 	@Override
     public void onContainerClosed(EntityPlayer entityplayer)
     {
-        super.onContainerClosed(entityplayer);
     }
 
 	@Override
@@ -86,7 +100,7 @@ public class ContainerDCT extends Container{
     {
         return this.worldObj.getBlockState(this.pos).getBlock() != EIMBlocks.dualCraftingTable ? false : invPlayer.player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
     }
-
+	
     @Override
 	 public ItemStack transferStackInSlot(EntityPlayer player, int index)
   {

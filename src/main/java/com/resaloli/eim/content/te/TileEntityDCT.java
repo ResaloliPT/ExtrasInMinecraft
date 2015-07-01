@@ -14,19 +14,74 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.util.Constants;
 
 
 public class TileEntityDCT extends TileEntityLockable implements IInventory
 {
 
-	public ItemStack[] inventory = new ItemStack[26];
 	
+	
+	public ItemStack[] inventory = new ItemStack[25];
+	public TileEntityDCT() {}
+
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound nbtTag = new NBTTagCompound();
+		this.writeToNBT(nbtTag);
+		return new S35PacketUpdateTileEntity(pos, 1, nbtTag);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+		readFromNBT(packet.getNbtCompound());
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound par1NBTTagCompound)
+	{
+		super.readFromNBT(par1NBTTagCompound);
+        NBTTagList tagList = par1NBTTagCompound.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.tagCount(); i++) 
+          {
+                NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+                byte slot = tag.getByte("Slot");                                                 
+                if (slot >= 0 && slot < inventory.length)   
+                  {
+                	inventory[slot] = ItemStack.loadItemStackFromNBT(tag); 
+                  }                                                                                                
+          }
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+	{
+		super.writeToNBT(par1NBTTagCompound);
+		NBTTagList itemList = new NBTTagList();
+        for (int i = 0; i < inventory.length; i++)                             
+          {
+                ItemStack stack = inventory[i]; 
+                if (stack != null)                                                                      
+                  {
+                        NBTTagCompound tag = new NBTTagCompound();  
+                        tag.setByte("Slot", (byte) i);                   
+                        stack.writeToNBT(tag);  
+                        itemList.appendTag(tag);
+                  }
+          }
+        par1NBTTagCompound.setTag("Inventory", itemList);   
+        markDirty();
+	}
 
 	@Override
     public int getSizeInventory()
     {
         return this.inventory.length;
     }
+	
+	public void updateTE(){
+		getDescriptionPacket();
+	}
 
 	@Override
     public ItemStack getStackInSlot(int slotIn)
@@ -86,66 +141,18 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
 		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
 			itemstack.stackSize = getInventoryStackLimit();
 		}
-		markDirty();
 	}
 
 	@Override
     public String getName()
     {
-    	return "Dual Crafting Table";
+    	return "Dual.Crafting.Table";
     }
 
 	@Override
     public boolean hasCustomName()
     {
-    	return true;
-    }
-
-    @Override
-	public Packet getDescriptionPacket() {
-	    NBTTagCompound tag = new NBTTagCompound();
-	    writeToNBT(tag);
-	    return new S35PacketUpdateTileEntity(pos, 0, tag);
-	}
-	
-	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-	    readFromNBT(pkt.getNbtCompound());
-	}
-    
-    @Override
-    public void readFromNBT(NBTTagCompound compound)
-    {
-        super.readFromNBT(compound);
-        NBTTagList list = compound.getTagList("ItemsDCTSlots", 10);
-        this.inventory = new ItemStack[this.getSizeInventory()];
-        for (int var3 = 0; var3 < list.tagCount(); ++var3){
-            NBTTagCompound var4 = list.getCompoundTagAt(var3);
-            byte var5 = var4.getByte("SlotDCT");
-            if (var5 >= 0 && var5 < this.inventory.length)
-            {
-                this.inventory[var5] = ItemStack.loadItemStackFromNBT(var4);
-            }
-        }
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound compound)
-    {
-        super.writeToNBT(compound);
-        NBTTagList var2 = new NBTTagList();
-        for (int var3 = 0; var3 < this.inventory.length; ++var3)
-        {
-            if (this.inventory[var3] != null)
-            {
-                NBTTagCompound var4 = new NBTTagCompound();
-                var4.setByte("SlotDCT", (byte)var3);
-                this.inventory[var3].writeToNBT(var4);
-                var2.appendTag(var4);
-            }
-        }
-
-        compound.setTag("ItemsDCTSlots", var2);
+    	return false;
     }
     
     @Override
@@ -159,11 +166,7 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
     {
         return p_174903_0_.getField(0) > 0;
     }
-
-    public void updateEntity(){
-    	this.markDirty();
-    }
-
+    
     public int func_174904_a(ItemStack p_174904_1_)
     {
         return 200;
@@ -177,10 +180,16 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
     }
 
     @Override
-    public void openInventory(EntityPlayer playerIn) {}
+    public void openInventory(EntityPlayer playerIn) {
+    	//not bein called
+    	System.out.println("Open");
+    }
 
     @Override
-    public void closeInventory(EntityPlayer playerIn) {}
+    public void closeInventory(EntityPlayer playerIn) {
+    	//not bein called
+    	System.out.println("Close");
+    }
 
     
     @Override
@@ -229,4 +238,6 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
             this.inventory[var1] = null;
         }
     }
+
+	
 }

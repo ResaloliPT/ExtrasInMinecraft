@@ -1,4 +1,4 @@
-package com.resaloli.eim.content.slot;
+package com.resaloli.eim.content.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
