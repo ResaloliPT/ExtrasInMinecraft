@@ -1,22 +1,7 @@
 package com.resaloli.eim.content.recipes;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockPrismarine;
-import net.minecraft.block.BlockQuartz;
-import net.minecraft.block.BlockRedSandstone;
-import net.minecraft.block.BlockSand;
-import net.minecraft.block.BlockSandStone;
-import net.minecraft.block.BlockStone;
-import net.minecraft.block.BlockStoneBrick;
-import net.minecraft.block.BlockStoneSlab;
-import net.minecraft.block.BlockStoneSlabNew;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -25,22 +10,18 @@ import com.resaloli.eim.content.crafting.CraftingManagerDCT;
 
 public class Recipes {
 
-	
-	//Blocks into ingots array
-	private static  Object[][] blockIngots = new Object[][] {{Blocks.gold_block, new ItemStack(Items.gold_ingot, 9)}, {Blocks.iron_block, new ItemStack(Items.iron_ingot, 9)}, {Blocks.diamond_block, new ItemStack(Items.diamond, 9)}, {Blocks.emerald_block, new ItemStack(Items.emerald, 9)}, {Blocks.lapis_block, new ItemStack(Items.dye, 9, EnumDyeColor.BLUE.getDyeDamage())}, {Blocks.redstone_block, new ItemStack(Items.redstone, 9)}, {Blocks.coal_block, new ItemStack(Items.coal, 9, 0)}, {Blocks.hay_block, new ItemStack(Items.wheat, 9)}, {Blocks.slime_block, new ItemStack(Items.slime_ball, 9)}};
-	
 	//Patterns
-	private static String[][] weaponsPatterns = new String[][] {{"X", "X", "#"}};
-	private static String[][] toolsPatterns = new String[][] {{"XXX", " # ", " # "}, {"X", "#", "#"}, {"XX", "X#", " #"}, {"XX", " #", " #"}};
-	private static String[][] armourPatterns = new String[][] {{"XXX", "X X"}, {"X X", "XXX", "XXX"}, {"XXX", "X X", "X X"}, {"X X", "X X"}};
+	//private static String[][] weaponsPatterns = new String[][] {{"X", "X", "#"}};
+	//private static String[][] toolsPatterns = new String[][] {{"XXX", " # ", " # "}, {"X", "#", "#"}, {"XX", "X#", " #"}, {"XX", " #", " #"}};
+	//private static String[][] armourPatterns = new String[][] {{"XXX", "X X"}, {"X X", "XXX", "XXX"}, {"XXX", "X X", "X X"}, {"X X", "X X"}};
 	
 	//Materials
-	private static  Object[][] materials = new Object[][] {{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword}};
-	private static  Item[][] materials1 = new Item[][] {{Items.leather, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.leather_helmet, Items.iron_helmet, Items.diamond_helmet, Items.golden_helmet}, {Items.leather_chestplate, Items.iron_chestplate, Items.diamond_chestplate, Items.golden_chestplate}, {Items.leather_leggings, Items.iron_leggings, Items.diamond_leggings, Items.golden_leggings}, {Items.leather_boots, Items.iron_boots, Items.diamond_boots, Items.golden_boots}};
+	//private static  Object[][] materials = new Object[][] {{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword}};
+	//private static  Item[][] materials1 = new Item[][] {{Items.leather, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.leather_helmet, Items.iron_helmet, Items.diamond_helmet, Items.golden_helmet}, {Items.leather_chestplate, Items.iron_chestplate, Items.diamond_chestplate, Items.golden_chestplate}, {Items.leather_leggings, Items.iron_leggings, Items.diamond_leggings, Items.golden_leggings}, {Items.leather_boots, Items.iron_boots, Items.diamond_boots, Items.golden_boots}};
 	
 	public static void initRecipes(){
 		//Recipes That need to be inited
-		GameRegistry.addRecipe(new ItemStack(EIMBlocks.dualCraftingTable), new Object[] {"XPX", "III", "XPX", 'X', Blocks.crafting_table, 'I', Items.iron_ingot, 'P', Blocks.planks});
+		GameRegistry.addRecipe(new ItemStack(EIMBlocks.dualCraftingTable), new Object[] {"XPX", "III", "XPX", 'X', "minecraft:crafting_table", 'I', Items.IRON_INGOT, 'P', Blocks.PLANKS});
 	}
 	
 	public static void addRecipes(CraftingManagerDCT craftMan){

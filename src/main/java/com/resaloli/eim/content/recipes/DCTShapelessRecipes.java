@@ -7,6 +7,7 @@ import java.util.List;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 public class DCTShapelessRecipes implements IRecipe
@@ -80,7 +81,7 @@ public class DCTShapelessRecipes implements IRecipe
     }
 
 	@Override
-	public ItemStack[] getRemainingItems(InventoryCrafting arg0) {
+	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting arg0) {
 		return null;
 	}
 }

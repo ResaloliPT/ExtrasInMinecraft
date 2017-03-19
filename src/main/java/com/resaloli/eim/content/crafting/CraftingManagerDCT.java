@@ -166,32 +166,4 @@ public class CraftingManagerDCT
         return var4.getCraftingResult(p_82787_1_);
     }
 
-    public ItemStack[] func_180303_b(InventoryCrafting p_180303_1_, World worldIn)
-    {
-        Iterator var3 = this.recipes.iterator();
-
-        while (var3.hasNext())
-        {
-            IRecipe var4 = (IRecipe)var3.next();
-
-            if (var4.matches(p_180303_1_, worldIn))
-            {
-                return var4.getRemainingItems(p_180303_1_);
-            }
-        }
-
-        ItemStack[] var5 = new ItemStack[p_180303_1_.getSizeInventory()];
-
-        for (int var6 = 0; var6 < var5.length; ++var6)
-        {
-            var5[var6] = p_180303_1_.getStackInSlot(var6);
-        }
-
-        return var5;
-    }
-    
-    public List getRecipeList()
-    {
-        return this.recipes;
-    }
 }

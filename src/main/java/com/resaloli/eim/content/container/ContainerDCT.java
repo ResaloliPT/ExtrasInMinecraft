@@ -10,11 +10,8 @@ import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.resaloli.eim.content.blocks.EIMBlocks;
 import com.resaloli.eim.content.crafting.CraftingManagerDCT;
@@ -140,7 +137,7 @@ public class ContainerDCT extends Container{
               return null;
           }
 
-          if (itemstack1.stackSize == 0)
+          if (itemstack1.func_190916_E() == 0)
           {
               slot.putStack((ItemStack)null);
           }
@@ -149,12 +146,12 @@ public class ContainerDCT extends Container{
               slot.onSlotChanged();
           }
 
-          if (itemstack1.stackSize == itemstack.stackSize)
+          if (itemstack1.func_190916_E() == itemstack.func_190916_E())
           {
               return null;
           }
 
-          slot.onPickupFromSlot(player, itemstack1);
+          slot.func_190901_a(player, itemstack1);
       }
 
       return itemstack;

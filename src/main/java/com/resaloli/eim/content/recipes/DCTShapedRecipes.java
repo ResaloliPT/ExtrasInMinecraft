@@ -4,6 +4,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 public class DCTShapedRecipes implements IRecipe
@@ -26,6 +27,11 @@ public class DCTShapedRecipes implements IRecipe
     public ItemStack getRecipeOutput()
     {
         return this.recipeOutput;
+    }
+
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+        return null;
     }
 
     public boolean matches(InventoryCrafting par1InventoryCrafting, World par2World)
@@ -124,9 +130,4 @@ public class DCTShapedRecipes implements IRecipe
         this.field_92101_f = true;
         return this;
     }
-
-	@Override
-	public ItemStack[] getRemainingItems(InventoryCrafting arg0) {
-		return null;
-	}
 }
