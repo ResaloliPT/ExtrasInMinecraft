@@ -95,7 +95,7 @@ public class ContainerDCT extends Container{
 	@Override
     public boolean canInteractWith(EntityPlayer entityplayer)
     {
-        return this.worldObj.getBlockState(this.pos).getBlock() != EIMBlocks.dualCraftingTable ? false : invPlayer.player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+        return false; //this.worldObj.getBlockState(this.pos).getBlock() != EIMBlocks.dualCraftingTable ? false : invPlayer.player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
     }
 	
     @Override
@@ -137,21 +137,21 @@ public class ContainerDCT extends Container{
               return null;
           }
 
-          if (itemstack1.func_190916_E() == 0)
+          if (itemstack1.getCount() == 0)
           {
-              slot.putStack((ItemStack)null);
+              slot.putStack(ItemStack.EMPTY);
           }
           else
           {
               slot.onSlotChanged();
           }
 
-          if (itemstack1.func_190916_E() == itemstack.func_190916_E())
+          if (itemstack1.getCount() == itemstack.getCount())
           {
               return null;
           }
 
-          slot.func_190901_a(player, itemstack1);
+          slot.onTake(player, itemstack1);
       }
 
       return itemstack;

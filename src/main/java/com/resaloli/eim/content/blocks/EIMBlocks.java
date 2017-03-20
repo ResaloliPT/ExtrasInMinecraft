@@ -1,14 +1,12 @@
 package com.resaloli.eim.content.blocks;
 
-import com.resaloli.eim.Interfaces.IItemModelProvider;
-import com.resaloli.eim.content.items.ItemBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class EIMBlocks {
 
-	public static dualCraftingTable dualCraftingTable;
+	/*public static dualCraftingTable dualCraftingTable;
 
 	public static void init() {
 		dualCraftingTable = register(new dualCraftingTable("dualCraftingTable"));
@@ -30,5 +28,5 @@ public class EIMBlocks {
 		ItemBlock itemBlock = new ItemBlock(block);
 		itemBlock.setRegistryName(block.getRegistryName());
 		return register(block, itemBlock);
-	}
+	}*/
 }

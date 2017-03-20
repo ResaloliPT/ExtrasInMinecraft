@@ -17,7 +17,7 @@ public class ExtrasInMinecraft{
 	public static ExtrasInMinecraft instance;
 
 	//Strings
-	public final static String modid = "extrasinminecraft";
+    public final static String modid = "extrasinminecraft";
 	public static final String modName = "Extras In Minecraft";
 	public final static String version = "0.1";
 	
@@ -37,6 +37,9 @@ public class ExtrasInMinecraft{
     public void preInit(FMLPreInitializationEvent event) {
         System.out.println("PreIniting EIM");
         EIMItems.init();
+        EIMItems.register();
+
+        ProxyClient.registerRenders();
     }
 
     @Mod.EventHandler

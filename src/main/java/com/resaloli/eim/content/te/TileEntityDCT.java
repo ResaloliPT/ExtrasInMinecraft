@@ -29,7 +29,7 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
     }
 
     @Override
-    public boolean func_191420_l() {
+    public boolean isEmpty() {
         return false;
     }
 
@@ -46,14 +46,14 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
 
         if (stackInSlot == null)
             return null;
-        /* .func_190916_E() = getStackSize()*/
-        if (stackInSlot.func_190916_E() <= count) {
+        /* .func_190916_E() = getCount()*/
+        if (stackInSlot.getCount() <= count) {
             stackRemoved = stackInSlot;
             setInventorySlotContents(index, null);
         } else {
             stackRemoved = stackInSlot.splitStack(count);
-            if (stackInSlot.func_190916_E() == 0)
-                setInventorySlotContents(index, null);
+            if (stackInSlot.getCount() == 0)
+                setInventorySlotContents(index, ItemStack.EMPTY);
         }
         markDirty();
         return stackRemoved;
@@ -72,8 +72,8 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
 	@Override
     public void setInventorySlotContents(int i, ItemStack itemstack) {
 		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.func_190916_E() > getInventoryStackLimit()) {
-		    itemstack.func_190920_e(getInventoryStackLimit());
+		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()) {
+		    itemstack.setCount(getInventoryStackLimit());
 		}
 	}
 
@@ -95,11 +95,10 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
         return 64;
     }
 
-    
     @Override
-    public boolean isUseableByPlayer(EntityPlayer playerIn)
+    public boolean isUsableByPlayer(EntityPlayer playerIn)
     {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.world.getTileEntity(this.pos) != this ? false : playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override

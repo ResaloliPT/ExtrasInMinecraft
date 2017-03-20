@@ -21,7 +21,7 @@ public class Recipes {
 	
 	public static void initRecipes(){
 		//Recipes That need to be inited
-		GameRegistry.addRecipe(new ItemStack(EIMBlocks.dualCraftingTable), new Object[] {"XPX", "III", "XPX", 'X', "minecraft:crafting_table", 'I', Items.IRON_INGOT, 'P', Blocks.PLANKS});
+		//GameRegistry.addRecipe(new ItemStack(EIMBlocks.dualCraftingTable), new Object[] {"XPX", "III", "XPX", 'X', "minecraft:crafting_table", 'I', Items.IRON_INGOT, 'P', Blocks.PLANKS});
 	}
 	
 	public static void addRecipes(CraftingManagerDCT craftMan){

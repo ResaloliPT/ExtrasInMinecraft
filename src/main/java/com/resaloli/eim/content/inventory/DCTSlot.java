@@ -45,7 +45,7 @@ public class DCTSlot extends Slot
     {
         if (this.getHasStack())
         {
-            this.amountCrafted += Math.min(amount, this.getStack().func_190916_E());
+            this.amountCrafted += Math.min(amount, this.getStack().getCount());
         }
 
         return super.decrStackSize(amount);

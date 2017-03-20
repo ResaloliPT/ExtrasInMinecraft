@@ -17,32 +17,43 @@ public class CheatCommand implements ICommand{
 	ArrayList<String> aliases = new ArrayList<String>(); 
 	
 	public CheatCommand() 
-    { 
-        
+    {
         aliases.add("EIMCheatSword");
     }
+
+	@Override
+	public String getName() {
+		return null;
+	}
+
+	@Override
+	public String getUsage(ICommandSender sender) {
+		return null;
+	}
+
+	@Override
+	public List<String> getAliases() {
+		return null;
+	}
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if(sender instanceof EntityPlayer)
 		{
-			sender.addChatMessage(new TextComponentString("You Little Cheater! >:D"));
+			sender.sendMessage(new TextComponentString("You Little Cheater! >:D"));
 			String Command = "/summon Creeper ~0 ~1 ~0 {Equipment:[{Count:1,id:diamond_sword,tag:{Unbreakable:1,ench:[{id:18,lvl:5},{id:20,lvl:2},{id:19,lvl:2},{id:21,lvl:3},{id:16,lvl:5},{id:17,lvl:5},{id:34,lvl:3}]}},{id:diamond_boots},{id:diamond_leggings},{id:diamond_chestplate},{id:diamond_helmet}],CustomName:ResaloliPT,CustomNameVisible:1,Attributes:[{Name:generic.maxHealth,Base:1}],DropChances:[2.0F,0.0F,0.0F,0.0F,0.0F],ExplosionRadius:20,Fuse:800,NoAI:1,powered:1}";
 			server.getCommandManager().executeCommand(sender, Command);
 		}
 	}
 
-	@Override
 	public String getCommandUsage(ICommandSender sender) {
 		return "EIMCheatSword <text>";
 	}
 
-	@Override
 	public List<String> getCommandAliases() {
 		return null;
 	}
 
-	@Override
 	public String getCommandName() {
 		return "EIMCheatSword";
 	}
@@ -53,6 +64,10 @@ public class CheatCommand implements ICommand{
 	}
 
 	@Override
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+		return null;
+	}
+
 	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
 		return null;
 	}
