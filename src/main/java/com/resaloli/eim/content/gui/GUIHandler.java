@@ -1,5 +1,6 @@
 package com.resaloli.eim.content.gui;
 
+import com.resaloli.eim.CONSTANTS;
 import com.resaloli.eim.content.container.ContainerDCT;
 import com.resaloli.eim.content.te.TileEntityDCT;
 
@@ -13,34 +14,20 @@ public class GUIHandler implements IGuiHandler
 {
 
         @Override
-        public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) 
-        { 
-                TileEntityDCT tileEntity = (TileEntityDCT) world.getTileEntity(new BlockPos(x, y, z));
-
-                if(tileEntity != null)
+        public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+                switch(ID)
                 {
-                        switch(ID)
-                        {
-                        case 0: return new ContainerDCT(player.inventory, tileEntity);
-                        }
+                        case CONSTANTS.GUI_DUAL_CRAFTING_TABLE_ID: return new ContainerDCT(player.inventory, world, new BlockPos(x,y,z));
                 }
-
                 return null;
         }
 
         @Override
-        public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-        {
-                TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
-
-                if (tileEntity != null)
+        public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+                switch(ID)
                 {
-                        switch(ID)
-                        {
-                        case 0: return new GUIdualCraftingTable(player.inventory, (TileEntityDCT)tileEntity, world, new BlockPos(x,y,z));
-                        }
+                       case CONSTANTS.GUI_DUAL_CRAFTING_TABLE_ID: return new GUIdualCraftingTable(player.inventory, world, new BlockPos(x,y,z));
                 }
-
                 return null;
         }
 }

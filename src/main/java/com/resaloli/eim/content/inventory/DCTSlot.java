@@ -10,22 +10,18 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.stats.AchievementList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class DCTSlot extends Slot
 {
-	private final IInventory tileEntity;
 	private EntityPlayer thePlayer;
-	private  int amountCrafted;
+	private int amountCrafted;
 
-	public DCTSlot (EntityPlayer player, IInventory iInventory, IInventory inventory, int index, int x, int y)
+	public DCTSlot (IInventory iInventory, int index, int x, int y)
 	{
-		super(inventory, index, x, y);
-		this.tileEntity = iInventory;
-		this.thePlayer = player;
+		super(iInventory, index, x, y);
 	}
 	
 	@Override

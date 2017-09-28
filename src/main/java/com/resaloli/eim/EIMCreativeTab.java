@@ -1,6 +1,7 @@
 package com.resaloli.eim;
 
 import com.resaloli.eim.content.blocks.EIMBlocks;
+import com.resaloli.eim.content.items.EIMItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -15,11 +16,11 @@ public class EIMCreativeTab extends CreativeTabs{
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(Items.APPLE/*getItemFromBlock(EIMBlocks.dualCraftingTable)*/);
+        return new ItemStack(EIMItems.ITEMS[1]);
     }
 
     @Override
     public boolean hasSearchBar() {
-        return false;
+        return true;
     }
 }

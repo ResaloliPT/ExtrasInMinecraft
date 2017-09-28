@@ -9,14 +9,13 @@ import net.minecraft.world.World;
 
 import com.resaloli.eim.ExtrasInMinecraft;
 import com.resaloli.eim.content.container.ContainerDCT;
-import com.resaloli.eim.content.te.TileEntityDCT;
 
 public class GUIdualCraftingTable extends GuiContainer{
 
-	public static ResourceLocation GUIdualCraftingTableRes = new ResourceLocation(ExtrasInMinecraft.modid, "textures/gui/GUIDualCraftingTable.png");
-	
-	public GUIdualCraftingTable(InventoryPlayer playerInv, TileEntityDCT tileentity, World world, BlockPos pos) {
-		super(new ContainerDCT(playerInv, tileentity));
+	public static ResourceLocation GUIdualCraftingTableRes = new ResourceLocation(ExtrasInMinecraft.modid, "textures/gui/gui_dual_crafting_table.png");
+
+	public GUIdualCraftingTable(InventoryPlayer playerInv, World world, BlockPos pos) {
+		super(new ContainerDCT(playerInv, world, pos));
 		this.xSize = 176;
 		this.ySize = 183;
 	}
@@ -27,4 +26,7 @@ public class GUIdualCraftingTable extends GuiContainer{
 		this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 	}
 
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	}
 }

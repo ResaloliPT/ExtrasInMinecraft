@@ -15,15 +15,15 @@ out
 
 # gradle
 build
-.gradle
+*.gradle
 
 # other
 eclipse
 run
 
-README.txt
-gradle
-gradlew
+lib/*
 gradlew.bat
+gradlew
 gradle.properties
-build.gradle
+gradle/*
+LICENCE

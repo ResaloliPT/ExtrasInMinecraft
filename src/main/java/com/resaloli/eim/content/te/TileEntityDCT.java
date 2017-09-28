@@ -1,31 +1,28 @@
 package com.resaloli.eim.content.te;
 
-import com.resaloli.eim.content.container.ContainerDCT;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntityLockable;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 
+public class TileEntityDCT extends TileEntity implements IInventory{
 
-public class TileEntityDCT extends TileEntityLockable implements IInventory
-{
-	public ItemStack[] inventory = new ItemStack[25];
-	public TileEntityDCT() {}
+    private ItemStack[] inventory;
+    private String customName;
 
-	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		readFromNBT(packet.getNbtCompound());
-	}
+    public TileEntityDCT() {
+        this.inventory = new ItemStack[getSizeInventory()];
+    }
 
-	@Override
-    public int getSizeInventory()
-    {
-        return this.inventory.length;
+    /**
+     * Returns the number of slots in the inventory.
+     */
+    @Override
+    public int getSizeInventory() {
+        return 62;
     }
 
     @Override
@@ -33,30 +30,25 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
         return false;
     }
 
-	@Override
-    public ItemStack getStackInSlot(int slotIn)
-    {
-        return inventory[slotIn];
+    /**
+     * Returns the stack in the given slot.
+     *
+     * @param index
+     */
+    @Override
+    public ItemStack getStackInSlot(int index) {
+        return null;
     }
 
+    /**
+     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+     *
+     * @param index
+     * @param count
+     */
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        ItemStack stackInSlot = inventory[index];
-        ItemStack stackRemoved;
-
-        if (stackInSlot == null)
-            return null;
-        /* .func_190916_E() = getCount()*/
-        if (stackInSlot.getCount() <= count) {
-            stackRemoved = stackInSlot;
-            setInventorySlotContents(index, null);
-        } else {
-            stackRemoved = stackInSlot.splitStack(count);
-            if (stackInSlot.getCount() == 0)
-                setInventorySlotContents(index, ItemStack.EMPTY);
-        }
-        markDirty();
-        return stackRemoved;
+        return null;
     }
 
     /**
@@ -69,92 +61,100 @@ public class TileEntityDCT extends TileEntityLockable implements IInventory
         return null;
     }
 
-	@Override
-    public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()) {
-		    itemstack.setCount(getInventoryStackLimit());
-		}
-	}
-
-	@Override
-    public String getName()
-    {
-    	return "Dual.Crafting.Table";
-    }
-
-	@Override
-    public boolean hasCustomName()
-    {
-    	return false;
-    }
-    
+    /**
+     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     *
+     * @param index
+     * @param stack
+     */
     @Override
-    public int getInventoryStackLimit()
-    {
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        System.out.print("New Stack at: "+ index);
+    }
+
+    /**
+     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+     */
+    @Override
+    public int getInventoryStackLimit() {
         return 64;
     }
 
+    /**
+     * Don't rename this method to canInteractWith due to conflicts with Container
+     *
+     * @param player
+     */
     @Override
-    public boolean isUsableByPlayer(EntityPlayer playerIn)
-    {
-        return this.world.getTileEntity(this.pos) != this ? false : playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
-    }
-
-    @Override
-    public void openInventory(EntityPlayer playerIn) {
-    	//not bein called
-    	System.out.println("Open");
-    }
-
-    @Override
-    public void closeInventory(EntityPlayer playerIn) {
-    	//not bein called
-    	System.out.println("Close");
-    }
-
-    
-    @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack)
-    {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return true;
     }
 
-
     @Override
-    public String getGuiID()
-    {
-        return "0";
+    public void openInventory(EntityPlayer player) {
+        System.out.print("Hellow");
     }
 
     @Override
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-    	return new ContainerDCT(playerInventory, this);
+    public void closeInventory(EntityPlayer player) {
+        System.out.print("Bye~~");
     }
 
-    public int getField(int id)
-    {
-		return 0;
+    /**
+     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+     * guis use Slot.isItemValid
+     *
+     * @param index
+     * @param stack
+     */
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return false;
     }
 
-    public void setField(int id, int value)
-    {
-    }
-
-    public int getFieldCount()
-    {
+    @Override
+    public int getField(int id) {
         return 0;
     }
 
     @Override
-    public void clear()
-    {
-        for (int var1 = 0; var1 < this.inventory.length; ++var1)
-        {
-            this.inventory[var1] = null;
-        }
+    public void setField(int id, int value) {
+
     }
 
-	
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    /**
+     * Get the name of this object. For players this returns their username
+     */
+    @Override
+    public String getName() {
+        return this.hasCustomName() ? this.customName : "container.dual_crafting_table";
+    }
+
+    public void setName(String name) {
+        this.customName = name;
+    }
+
+    /**
+     * Returns true if this thing is named
+     */
+    @Override
+    public boolean hasCustomName() {
+        return this.customName != null && !this.customName.equals("");
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName());
+    }
+
 }
