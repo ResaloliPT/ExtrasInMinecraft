@@ -1,8 +1,9 @@
 package com.resaloli.eim.content.crafting;
 
+import com.resaloli.eim.interfaces.IRecipe;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
@@ -29,7 +30,7 @@ public class CraftingManagerDCT extends CraftingManager {
     }
 
     @Nullable
-    public static IRecipe findMatchingRecipe(InventoryCrafting craftMatrix, World worldIn) {
+    public static IRecipe findMatchingRecipes(InventoryCrafting craftMatrix, World worldIn) {
         for (IRecipe irecipe : REGISTRY) {
             if (irecipe.matches(craftMatrix, worldIn)) {
                 return irecipe;
@@ -56,7 +57,7 @@ public class CraftingManagerDCT extends CraftingManager {
     }
 
     @Nullable
-    public static IRecipe getRecipe(ResourceLocation name) {
+    public static IRecipe getRecipes(ResourceLocation name) {
         return REGISTRY.getObject(name);
     }
 }

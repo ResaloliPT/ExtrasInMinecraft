@@ -5,13 +5,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public interface IRecipe extends net.minecraft.item.crafting.IRecipe
+public interface IRecipe extends  IForgeRegistryEntry
 {
     /**
      * Used to check if a recipe matches current crafting inventory
      */
-    boolean matches(InventoryCrafting inv, World worldIn);
+    boolean matches(InventoryCrafting inv, World worldIn) ;
 
     /**
      * Returns an Item that is the result of this recipe

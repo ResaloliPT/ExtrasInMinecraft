@@ -2,12 +2,13 @@ package com.resaloli.eim.content.container;
 
 import com.resaloli.eim.content.crafting.CraftingManagerDCT;
 import com.resaloli.eim.content.crafting.DCTCrafting;
+import com.resaloli.eim.interfaces.IRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
+import com.resaloli.eim.content.crafting.InventoryCraftingResult;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,7 +18,7 @@ public class ContainerDCT extends Container
 {
     /** The crafting matrix inventory (5x5). */
     private InventoryCrafting craftMatrix;
-    private InventoryCraftResult craftResult;
+    private InventoryCraftingResult craftResult;
     private final World world;
     /** Position of the workbench */
     private final BlockPos pos;
@@ -29,7 +30,7 @@ public class ContainerDCT extends Container
         this.pos = posIn;
         this.player = playerInventory.player;
         this.craftMatrix = new DCTCrafting(this, 5, 5);
-        this.craftResult = new InventoryCraftResult();
+        this.craftResult = new InventoryCraftingResult();
 
         this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 25, 123, 68));
 
@@ -65,9 +66,9 @@ public class ContainerDCT extends Container
         {
             EntityPlayerMP entityplayermp = (EntityPlayerMP)this.player;
             ItemStack itemstack = ItemStack.EMPTY;
-            IRecipe irecipe = CraftingManagerDCT.findMatchingRecipe(this.craftMatrix, this.world);
+            IRecipe irecipe = CraftingManagerDCT.findMatchingRecipes(this.craftMatrix, this.world);
 
-            if (irecipe != null && (irecipe.isHidden() || !this.world.getGameRules().getBoolean("doLimitedCrafting") || entityplayermp.getRecipeBook().containsRecipe(irecipe)))
+            if (irecipe != null && (irecipe.isHidden() || !this.world.getGameRules().getBoolean("doLimitedCrafting") || entityplayermp.getRecipeBook().containsRecipe((net.minecraft.item.crafting.IRecipe) irecipe)))
             {
                 this.craftResult.setRecipeUsed(irecipe);
                 itemstack = irecipe.getCraftingResult(this.craftMatrix);
