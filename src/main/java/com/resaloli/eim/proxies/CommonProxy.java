@@ -20,7 +20,6 @@ public class CommonProxy {
     public void init(FMLInitializationEvent event) {
         System.out.println("Initing EIM");
         NetworkRegistry.INSTANCE.registerGuiHandler(ExtrasInMinecraft.instance, new GUIHandler());
-
     }
     public void postInit(FMLPostInitializationEvent event) {
         System.out.println("PostIniting EIM");

@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid=ExtrasInMinecraft.modid, name=ExtrasInMinecraft.modName, version=ExtrasInMinecraft.version)
-
 public class ExtrasInMinecraft{
 
     //Strings

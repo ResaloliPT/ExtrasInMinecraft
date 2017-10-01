@@ -1,6 +1,7 @@
 package com.resaloli.eim.content.container;
 
 import com.resaloli.eim.content.crafting.CraftingManagerDCT;
+import com.resaloli.eim.content.crafting.DCTCrafting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -15,8 +16,8 @@ import com.resaloli.eim.content.blocks.EIMBlocks;
 public class ContainerDCT extends Container
 {
     /** The crafting matrix inventory (5x5). */
-    private InventoryCrafting craftMatrix = new InventoryCrafting(this, 5, 5);
-    private InventoryCraftResult craftResult = new InventoryCraftResult();
+    private InventoryCrafting craftMatrix;
+    private InventoryCraftResult craftResult;
     private final World world;
     /** Position of the workbench */
     private final BlockPos pos;
@@ -27,6 +28,9 @@ public class ContainerDCT extends Container
         this.world = worldIn;
         this.pos = posIn;
         this.player = playerInventory.player;
+        this.craftMatrix = new DCTCrafting(this, 5, 5);
+        this.craftResult = new InventoryCraftResult();
+
         this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 25, 123, 68));
 
         for (int i = 0; i < craftMatrix.getHeight(); ++i)
