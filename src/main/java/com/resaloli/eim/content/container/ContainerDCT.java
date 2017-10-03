@@ -2,13 +2,13 @@ package com.resaloli.eim.content.container;
 
 import com.resaloli.eim.content.crafting.CraftingManagerDCT;
 import com.resaloli.eim.content.crafting.DCTCrafting;
-import com.resaloli.eim.interfaces.IRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import com.resaloli.eim.content.crafting.InventoryCraftingResult;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -68,7 +68,7 @@ public class ContainerDCT extends Container
             ItemStack itemstack = ItemStack.EMPTY;
             IRecipe irecipe = CraftingManagerDCT.findMatchingRecipes(this.craftMatrix, this.world);
 
-            if (irecipe != null && (irecipe.isHidden() || !this.world.getGameRules().getBoolean("doLimitedCrafting") || entityplayermp.getRecipeBook().containsRecipe((net.minecraft.item.crafting.IRecipe) irecipe)))
+            if (irecipe != null && (irecipe.isDynamic() || !this.world.getGameRules().getBoolean("doLimitedCrafting") || entityplayermp.getRecipeBook().isUnlocked(irecipe)))
             {
                 this.craftResult.setRecipeUsed(irecipe);
                 itemstack = irecipe.getCraftingResult(this.craftMatrix);

@@ -38,7 +38,7 @@ public class ItemSwordBase extends Item {
 
     public float getDamageVsEntity()
     {
-        return this.material.getDamageVsEntity();
+        return this.material.getAttackDamage();
     }
 
     public float getStrVsBlock(ItemStack stack, IBlockState state)
