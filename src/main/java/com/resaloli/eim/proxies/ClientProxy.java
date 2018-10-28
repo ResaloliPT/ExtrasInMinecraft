@@ -1,12 +1,22 @@
 package com.resaloli.eim.proxies;
 
+import com.resaloli.eim.ModularContent.Energy.Blocks.EIMEnerBlocks;
 import com.resaloli.eim.content.blocks.EIMBlocks;
+import com.resaloli.eim.content.crops.EIMCrops;
 import com.resaloli.eim.content.items.EIMItems;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import static com.resaloli.eim.Utils.initClient;
+
 
 public class ClientProxy extends CommonProxy {
     @Override
@@ -18,8 +28,15 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event) {
         super.init(event);
         ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-        EIMItems.initClient(mesher);
-        EIMBlocks.initClient(mesher);
+
+        ///Core
+        initClient(mesher, EIMItems.getList());
+        initClient(mesher, EIMBlocks.getList());
+        initClient(mesher, EIMCrops.getList());
+
+        ///Modules
+        //Energy
+        initClient(mesher, EIMEnerBlocks.getList());
     }
 
     @Override

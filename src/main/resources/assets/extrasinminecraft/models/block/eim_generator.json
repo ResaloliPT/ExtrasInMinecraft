@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "extrasinminecraft:blocks/eim_generator",
+    "front": "extrasinminecraft:blocks/eim_generator_face_off",
+    "side": "extrasinminecraft:blocks/eim_generator_sides",
+    "particle": "extrasinminecraft:blocks/eim_generator_face_off"
+  }
+}

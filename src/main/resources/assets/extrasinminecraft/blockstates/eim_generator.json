@@ -1,0 +1,61 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "front": "extrasinminecraft:blocks/eim_generator_face_off",
+      "top": "extrasinminecraft:blocks/eim_generator",
+      "side": "extrasinminecraft:blocks/eim_generator_sides",
+      "particle": "extrasinminecraft:blocks/eim_generator_face_off"
+    }
+  },
+  "variants": {
+    "normal": {
+      "model": "orientable"
+    },
+    "inventory": {
+      "model": "orientable"
+    },
+    "active=false,facing=north": {
+      "model": "orientable"
+    },
+    "active=false,facing=south": {
+      "model": "orientable",
+      "y": 180
+    },
+    "active=false,facing=west": {
+      "model": "orientable",
+      "y": 270
+    },
+    "active=false,facing=east": {
+      "model": "orientable",
+      "y": 90
+    },
+    "active=true,facing=north": {
+      "model": "orientable",
+      "textures": {
+        "front": "extrasinminecraft:blocks/eim_generator_face_on"
+      }
+    },
+    "active=true,facing=south": {
+      "model": "orientable",
+      "textures": {
+        "front": "extrasinminecraft:blocks/eim_generator_face_on"
+      },
+      "y": 180
+    },
+    "active=true,facing=west": {
+      "model": "orientable",
+      "textures": {
+        "front": "extrasinminecraft:blocks/eim_generator_face_on"
+      },
+      "y": 270
+    },
+    "active=true,facing=east": {
+      "model": "orientable",
+      "textures": {
+        "front": "extrasinminecraft:blocks/eim_generator_face_on"
+      },
+      "y": 90
+    }
+  }
+}

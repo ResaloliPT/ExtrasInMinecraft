@@ -14,7 +14,6 @@ public class ItemBase extends Item  {
         this.setCreativeTab(ExtrasInMinecraft.tabExtrasInMinecraft);
     }
 
-    @Override
     public String getUnlocalizedName()
     {
         return "item." + ExtrasInMinecraft.modid + ":" + this.name;

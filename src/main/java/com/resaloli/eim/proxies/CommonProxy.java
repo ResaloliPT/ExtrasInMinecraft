@@ -1,9 +1,12 @@
 package com.resaloli.eim.proxies;
 
+import com.resaloli.eim.CONSTANTS;
 import com.resaloli.eim.ExtrasInMinecraft;
-import com.resaloli.eim.content.gui.GUIHandler;
+import com.resaloli.eim.ModularContent.Energy.TileEntities.TileEntityGenerator;
+import com.resaloli.eim.handlers.GUIHandler;
 import com.resaloli.eim.content.te.TileEntityDCT;
 import com.resaloli.eim.handlers.EventHandler;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,7 +18,6 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         System.out.println("PreIniting EIM");
         MinecraftForge.EVENT_BUS.register(new EventHandler());
-        GameRegistry.registerTileEntity(TileEntityDCT.class, ExtrasInMinecraft.modid+":TileEntitydualCraftingTable");
     }
     public void init(FMLInitializationEvent event) {
         System.out.println("Initing EIM");

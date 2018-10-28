@@ -1,4 +1,9 @@
 itemGroup.extrasinminecraft=Extras In Minecraft
 tile.extrasinminecraft:block_dual_crafting_table.name=Crafting Table Dupla
+tile.extrasinminecraft:EIM_Generator.name=Gerador
 item.extrasinminecraft:item_debug.name=Debug Item
 item.extrasinminecraft:item_super_sword.name=Super Sword
+item.extrasinminecraft:item_food_hamburger.name=Hamburger
+item.extrasinminecraft:item_food_tomato.name=Tomato
+item.extrasinminecraft:item_food_lettuce.name=Alface
+effect.wellFed=Bem Alimentado

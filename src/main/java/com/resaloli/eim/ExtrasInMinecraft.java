@@ -1,11 +1,9 @@
 package com.resaloli.eim;
 
-import com.resaloli.eim.handlers.EventHandler;
-import com.resaloli.eim.proxies.*;
+import com.resaloli.eim.proxies.CommonProxy;
 import net.minecraft.command.ICommandManager;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -13,21 +11,35 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid=ExtrasInMinecraft.modid, name=ExtrasInMinecraft.modName, version=ExtrasInMinecraft.version)
+import javax.annotation.Nullable;
+import java.io.File;
+
+@Mod(
+        modid=ExtrasInMinecraft.modid,
+        name=ExtrasInMinecraft.modName,
+        version=ExtrasInMinecraft.version,
+        acceptedMinecraftVersions = "[1.12.2,1.13.0)",
+        dependencies = "required-after:forge@[14.23.3.2684,);")
+
 public class ExtrasInMinecraft{
 
     //Strings
-    public final static String modid = "extrasinminecraft";
+    public final static String modid = CONSTANTS.MOD_ID;
     public static final String modName = "Extras In Minecraft";
     public final static String version = "0.1";
 
 	//Instance
 	@Mod.Instance(ExtrasInMinecraft.modid)
 	public static ExtrasInMinecraft instance;
-	
+
+	@Nullable
+    private File configFile;
 	
 	//Proxy Things
-	@SidedProxy(clientSide="com.resaloli.eim.proxies.ClientProxy", serverSide="com.resaloli.eim.proxies.CommonProxy")
+	@SidedProxy(
+	        clientSide="com.resaloli.eim.proxies.ClientProxy",
+            serverSide="com.resaloli.eim.proxies.CommonProxy")
+
 	public static CommonProxy proxy;
 
 
@@ -40,13 +52,15 @@ public class ExtrasInMinecraft{
 	//Inits
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        configFile = new File(event.getModConfigurationDirectory(), CONSTANTS.MOD_ID);
+        //TODO: Implement Configs! Config.load(event.getSide());
+
         proxy.preInit(event);
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
-
     }
 
     @Mod.EventHandler
@@ -54,7 +68,7 @@ public class ExtrasInMinecraft{
         proxy.postInit(event);
     }
 
-    @Mod.EventHandler //TODO: Fix command
+    @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         MinecraftServer server = event.getServer();
         ICommandManager command = server.getCommandManager();
@@ -62,44 +76,17 @@ public class ExtrasInMinecraft{
         manager.registerCommand(new CheatCommand());
     }
 
-  /**
-  public void preInit(FMLPreInitializationEvent paramFMLPreInitializationEvent)
-  {
-	  System.out.println("PreIniting EIM");
-	  GameRegistry.registerTileEntity(TileEntityDCT.class, "TileEntitydualCraftingTable");
-	  
-  }
-  
-  @Mod.EventHandler
-  public void initialize(FMLInitializationEvent paramFMLInitializationEvent)
-  {
-	  System.out.println("Initing EIM");
-	  MinecraftForge.EVENT_BUS.register(proxy);
-	  NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
-	  Recipes.initRecipes();
-  }
-
-  
-  @Mod.EventHandler //TODO: Fix command
-  public void serverStarting(FMLServerStartingEvent event) {
-	  MinecraftServer server = event.getServer();
-	  ICommandManager command = server.getCommandManager();
-	  ServerCommandManager manager = (ServerCommandManager) command;
-	  manager.registerCommand(new CheatCommand());
-  }**/
-  
-
-public String getModId()
+    public String getModId()
   {
     return this.modid;
   }
   
-  public String getModName()
+    public String getModName()
   {
     return this.modName;
   }
   
-  public String getModVersion()
+    public String getModVersion()
   {
     return this.version;
   }

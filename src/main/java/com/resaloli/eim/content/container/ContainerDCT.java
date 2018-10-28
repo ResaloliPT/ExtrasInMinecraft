@@ -1,44 +1,54 @@
 package com.resaloli.eim.content.container;
 
+import com.resaloli.eim.content.blocks.EIMBlocks;
 import com.resaloli.eim.content.crafting.CraftingManagerDCT;
 import com.resaloli.eim.content.crafting.DCTCrafting;
+import com.resaloli.eim.content.inventory.DCTSlotCrafting;
+import com.resaloli.eim.content.crafting.InventoryCraftingResult;
+import com.resaloli.eim.content.te.TileEntityDCT;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
-import com.resaloli.eim.content.crafting.InventoryCraftingResult;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import com.resaloli.eim.content.blocks.EIMBlocks;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerDCT extends Container
 {
     /** The crafting matrix inventory (5x5). */
-    private InventoryCrafting craftMatrix;
+    private DCTCrafting craftMatrix;
     private InventoryCraftingResult craftResult;
     private final World world;
     /** Position of the workbench */
     private final BlockPos pos;
     private final EntityPlayer player;
+    private TileEntityDCT te;
+    private IItemHandler handler;
 
     public ContainerDCT(InventoryPlayer playerInventory, World worldIn, BlockPos posIn)
     {
         this.world = worldIn;
         this.pos = posIn;
         this.player = playerInventory.player;
+        this.te = (TileEntityDCT)worldIn.getTileEntity(posIn);
+        this.handler = te.getHandler();
         this.craftMatrix = new DCTCrafting(this, 5, 5);
+        this.craftMatrix.openInventory(playerInventory.player);
         this.craftResult = new InventoryCraftingResult();
 
-        this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 25, 123, 68));
+
+        this.addSlotToContainer(new DCTSlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 25, 123, 68));
 
         for (int i = 0; i < craftMatrix.getHeight(); ++i)
         {
             for (int j = 0; j < craftMatrix.getWidth(); ++j)
             {
-                this.addSlotToContainer(new Slot(this.craftMatrix, j + i * 5, 8 + j * 18, 7 + i * 18));
+                this.addSlotToContainer(new SlotItemHandler(this.handler, j + i * 5, 8 + j * 18, 7 + i * 18));
             }
         }
 
@@ -77,6 +87,7 @@ public class ContainerDCT extends Container
             this.craftResult.setInventorySlotContents(0, itemstack);
             entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
         }
+        detectAndSendChanges();
     }
 
     /**
@@ -85,11 +96,9 @@ public class ContainerDCT extends Container
     @Override
     public void onContainerClosed(EntityPlayer playerIn)
     {
-        super.onContainerClosed(playerIn);
-
-        if (!this.world.isRemote)
-        {
-            this.clearContainer(playerIn, this.world, this.craftMatrix);
+        this.craftMatrix.closeInventory(playerIn);
+        for (int i = 0; i < this.handler.getSlots(); i++){
+            this.handler.insertItem(i, this.craftMatrix.getStackInSlot(i), false);
         }
     }
 
@@ -186,4 +195,5 @@ public class ContainerDCT extends Container
     {
         return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
     }
+
 }

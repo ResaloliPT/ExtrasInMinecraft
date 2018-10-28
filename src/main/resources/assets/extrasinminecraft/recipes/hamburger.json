@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "minecraft:cooked_beef"
+    },
+    {
+      "item": "extrasinminecraft:item_food_tomato"
+    },
+    {
+      "item": "extrasinminecraft:item_food_lettuce"
+    }
+  ],
+  "result": {
+    "item": "extrasinminecraft:item_food_hamburger"
+  }
+}

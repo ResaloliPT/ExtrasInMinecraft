@@ -1,14 +1,13 @@
 package com.resaloli.eim.content.gui;
 
+import com.resaloli.eim.ExtrasInMinecraft;
+import com.resaloli.eim.content.container.ContainerDCT;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import com.resaloli.eim.ExtrasInMinecraft;
-import com.resaloli.eim.content.container.ContainerDCT;
 
 public class GUIdualCraftingTable extends GuiContainer{
 
@@ -24,6 +23,12 @@ public class GUIdualCraftingTable extends GuiContainer{
 	protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUIdualCraftingTableRes);
 		this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+	}
+
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		this.drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 
 	@Override

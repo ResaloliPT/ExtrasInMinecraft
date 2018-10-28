@@ -13,21 +13,21 @@ import javax.annotation.Nullable;
 
 public class CraftingManagerDCT extends CraftingManager {
 
-    private static int nextAvailableId;
-    public static final RegistryNamespaced<ResourceLocation, IRecipe> REGISTRY = net.minecraftforge.registries.GameData.getWrapper(IRecipe.class);
+    private static final RegistryNamespaced<ResourceLocation, IRecipe> REGISTRY = net.minecraftforge.registries.GameData.getWrapper(IRecipe.class);
 
     /**
      * Retrieves an ItemStack that has multiple recipes for it.
      */
-    public static ItemStack findMatchingResult(InventoryCrafting p_82787_0_, World craftMatrix) {
+    /*@Nullable
+    public static ItemStack findMatchingResult(InventoryCrafting inventoryCrafting, World craftMatrix) {
         for (IRecipe irecipe : REGISTRY) {
-            if (irecipe.matches(p_82787_0_, craftMatrix)) {
-                return irecipe.getCraftingResult(p_82787_0_);
+            if (irecipe.matches(inventoryCrafting, craftMatrix)) {
+                return irecipe.getCraftingResult(inventoryCrafting);
             }
         }
 
         return ItemStack.EMPTY;
-    }
+    }*/
 
     @Nullable
     public static IRecipe findMatchingRecipes(InventoryCrafting craftMatrix, World worldIn) {
@@ -40,17 +40,17 @@ public class CraftingManagerDCT extends CraftingManager {
         return null;
     }
 
-    public static NonNullList<ItemStack> getRemainingItems(InventoryCrafting p_180303_0_, World craftMatrix) {
+    public static NonNullList<ItemStack> getRemainingItems(DCTCrafting invCrafting, World craftMatrix) {
         for (IRecipe irecipe : REGISTRY) {
-            if (irecipe.matches(p_180303_0_, craftMatrix)) {
-                return irecipe.getRemainingItems(p_180303_0_);
+            if (irecipe.matches( invCrafting, craftMatrix)) {
+                return irecipe.getRemainingItems(invCrafting);
             }
         }
 
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(p_180303_0_.getSizeInventory(), ItemStack.EMPTY);
+        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(invCrafting.getSizeInventory(), ItemStack.EMPTY);
 
         for (int i = 0; i < nonnulllist.size(); ++i) {
-            nonnulllist.set(i, p_180303_0_.getStackInSlot(i));
+            nonnulllist.set(i, invCrafting.getStackInSlot(i));
         }
 
         return nonnulllist;
