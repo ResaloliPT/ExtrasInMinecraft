@@ -1,18 +1,13 @@
 package com.resaloli.eim.proxies;
 
-import com.resaloli.eim.CONSTANTS;
 import com.resaloli.eim.ExtrasInMinecraft;
-import com.resaloli.eim.ModularContent.Energy.TileEntities.TileEntityGenerator;
-import com.resaloli.eim.handlers.GUIHandler;
-import com.resaloli.eim.content.te.TileEntityDCT;
 import com.resaloli.eim.handlers.EventHandler;
-import net.minecraft.util.ResourceLocation;
+import com.resaloli.eim.handlers.GUIHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {

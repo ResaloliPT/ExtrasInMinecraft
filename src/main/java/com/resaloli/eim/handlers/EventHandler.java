@@ -1,6 +1,6 @@
 package com.resaloli.eim.handlers;
 
-import com.resaloli.eim.CONSTANTS;
+import com.resaloli.eim.ExtrasInMinecraft;
 import com.resaloli.eim.ModularContent.Energy.Blocks.EIMEnerBlocks;
 import com.resaloli.eim.ModularContent.Energy.TileEntities.TileEntityGenerator;
 import com.resaloli.eim.Utils;
@@ -8,22 +8,18 @@ import com.resaloli.eim.content.blocks.EIMBlocks;
 import com.resaloli.eim.content.crops.EIMCrops;
 import com.resaloli.eim.content.items.EIMItems;
 import com.resaloli.eim.content.potions.EIMPotions;
-import com.resaloli.eim.content.te.TileEntityDCT;
+import com.resaloli.eim.content.tileentity.TileEntityDCT;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import static com.resaloli.eim.Utils.*;
-
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class EventHandler {
 
     @SubscribeEvent
@@ -55,12 +51,12 @@ public class EventHandler {
 
         /// Register TileEntities ///
         //Core
-        GameRegistry.registerTileEntity(TileEntityDCT.class, new ResourceLocation(CONSTANTS.MOD_ID, "TileEntityDCT"));
+        GameRegistry.registerTileEntity(TileEntityDCT.class, new ResourceLocation(ExtrasInMinecraft.MOD_ID, "TileEntityDCT"));
 
 
         ///Modules
         //Energy
-        GameRegistry.registerTileEntity(TileEntityGenerator.class, new ResourceLocation(CONSTANTS.MOD_ID, "TileEntityGenerator"));
+        GameRegistry.registerTileEntity(TileEntityGenerator.class, new ResourceLocation(ExtrasInMinecraft.MOD_ID, "TileEntityGenerator"));
     }
 
     @SubscribeEvent

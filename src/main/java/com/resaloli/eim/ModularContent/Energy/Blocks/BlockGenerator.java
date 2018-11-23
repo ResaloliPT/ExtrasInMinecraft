@@ -1,22 +1,16 @@
 package com.resaloli.eim.ModularContent.Energy.Blocks;
 
-import com.resaloli.eim.CONSTANTS;
 import com.resaloli.eim.ExtrasInMinecraft;
+import com.resaloli.eim.ModConfigs;
 import com.resaloli.eim.ModularContent.Energy.TileEntities.TileEntityGenerator;
-import com.resaloli.eim.content.blocks.BlockBase;
 import com.resaloli.eim.content.blocks.BlockDirectional;
-import com.resaloli.eim.content.te.TileEntityDCT;
-import javafx.geometry.HorizontalDirection;
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockProperties;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -32,7 +26,7 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
     public static PropertyBool ACTIVATED = PropertyBool.create("active");
 
     public BlockGenerator() {
-        super(Material.ROCK, "EIM_Generator", true);
+        super(Material.ROCK, "EIM_Generator");
         this.setHardness(1.5F);
         this.setHarvestLevel("picaxe", 1);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVATED, false));
@@ -41,16 +35,6 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, ACTIVATED);
-    }
-
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        if (placer.isSneaking()){
-            return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-        }else{
-            return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
-        }
-
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
@@ -65,7 +49,7 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 
             if (tileentity instanceof TileEntityGenerator)
             {
-                playerIn.openGui(ExtrasInMinecraft.instance, CONSTANTS.GUI_ENERGY_GENERATOR_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                playerIn.openGui(ExtrasInMinecraft.instance, ModConfigs.GUI_ENERGY_GENERATOR_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
                 return true;
             }
 
@@ -105,18 +89,6 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
         }
     }
 
-    public IBlockState getStateFromMeta(int meta)
-    {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
-
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-        {
-            enumfacing = EnumFacing.NORTH;
-        }
-
-        return this.getDefaultState().withProperty(FACING, enumfacing);
-    }
-
     public int getMetaFromState(IBlockState state)
     {
         return (state.getValue(FACING)).getIndex();
@@ -132,6 +104,11 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityGenerator(CONSTANTS.GeneratorEnergyPerTick);
+        return new TileEntityGenerator(ModConfigs.GeneratorEnergyPerTick);
+    }
+
+    @Override
+    public EnumPushReaction getPushReaction() {
+        return null;
     }
 }

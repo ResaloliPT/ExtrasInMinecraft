@@ -10,8 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class CropTomato extends BlockCrops{
     protected CropTomato(String name)
     {
-        super.setRegistryName(new ResourceLocation(ExtrasInMinecraft.modid, name));
-        super.setUnlocalizedName(ExtrasInMinecraft.modid+":"+name);
+        super.setRegistryName(new ResourceLocation(ExtrasInMinecraft.MOD_ID, name));
         this.setDefaultState(this.blockState.getBaseState().withProperty(this.getAgeProperty(), Integer.valueOf(0)));
         this.setTickRandomly(true);
         this.setHardness(0.0F);
@@ -21,7 +20,7 @@ public class CropTomato extends BlockCrops{
 
     protected Item getSeed()
     {
-        return (Item)EIMItems.tomato;
+        return EIMItems.tomato;
     }
 
     protected Item getCrop()

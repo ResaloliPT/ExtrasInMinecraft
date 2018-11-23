@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 public class InventoryCraftingResult implements IInventory {
     /** A list of one item containing the result of the crafting formula */
-    private final NonNullList<ItemStack> stackResult = NonNullList.<ItemStack>withSize(1, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> stackResult = NonNullList.withSize(1, ItemStack.EMPTY);
     private IRecipe recipeUsed;
 
     /**
@@ -67,7 +67,7 @@ public class InventoryCraftingResult implements IInventory {
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName()));
     }
 
     /**

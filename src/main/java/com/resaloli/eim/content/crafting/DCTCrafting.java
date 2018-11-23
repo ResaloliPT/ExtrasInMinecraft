@@ -3,7 +3,6 @@ package com.resaloli.eim.content.crafting;
 import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,7 @@ public class DCTCrafting extends InventoryCrafting
     public DCTCrafting(Container eventHandlerIn, int width, int height)
     {
         super(eventHandlerIn, width, height);
-        this.stackList = NonNullList.<ItemStack>withSize(width * height, ItemStack.EMPTY);
+        this.stackList = NonNullList.withSize(width * height, ItemStack.EMPTY);
         this.eventHandler = eventHandlerIn;
         this.inventoryWidth = width;
         this.inventoryHeight = height;
@@ -57,7 +56,7 @@ public class DCTCrafting extends InventoryCrafting
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= this.getSizeInventory() ? ItemStack.EMPTY : (ItemStack)this.stackList.get(index);
+        return index >= this.getSizeInventory() ? ItemStack.EMPTY : this.stackList.get(index);
     }
 
     /**
@@ -89,7 +88,7 @@ public class DCTCrafting extends InventoryCrafting
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return (this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName()));
     }
 
     /**

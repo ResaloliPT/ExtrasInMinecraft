@@ -1,9 +1,9 @@
 package com.resaloli.eim;
 
-public class CONSTANTS {
-    // Core Constants
-    public static final int GUI_DUAL_CRAFTING_TABLE_ID = 1;
-    public static  final  String MOD_ID = "extrasinminecraft";
+public class ModConfigs {
+
+    //Command Configs
+    public static final String COMMAND_PREFIX = "EIMDebug";
 
 
     //Energy Module Constants

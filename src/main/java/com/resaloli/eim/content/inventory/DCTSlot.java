@@ -1,6 +1,6 @@
 package com.resaloli.eim.content.inventory;
 
-import com.resaloli.eim.content.te.TileEntityDCT;
+import com.resaloli.eim.content.tileentity.TileEntityDCT;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.items.IItemHandler;

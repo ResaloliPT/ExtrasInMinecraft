@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class GUIdualCraftingTable extends GuiContainer{
 
-	public static ResourceLocation GUIdualCraftingTableRes = new ResourceLocation(ExtrasInMinecraft.modid, "textures/gui/gui_dual_crafting_table.png");
+    public static ResourceLocation GUIdualCraftingTableRes = new ResourceLocation(ExtrasInMinecraft.MOD_ID, "textures/gui/gui_dual_crafting_table.png");
 
 	public GUIdualCraftingTable(InventoryPlayer playerInv, World world, BlockPos pos) {
 		super(new ContainerDCT(playerInv, world, pos));

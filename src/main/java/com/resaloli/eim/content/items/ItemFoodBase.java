@@ -1,5 +1,6 @@
 package com.resaloli.eim.content.items;
 
+import com.resaloli.eim.EIMCreativeTab;
 import com.resaloli.eim.ExtrasInMinecraft;
 import com.resaloli.eim.content.potions.EIMPotions;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -25,14 +26,9 @@ public class ItemFoodBase extends ItemFood {
     ItemFoodBase(String itemName, int healAmount, float saturation) {
         super(healAmount, saturation, false);
         this.name = itemName;
-        this.setRegistryName(new ResourceLocation(ExtrasInMinecraft.modid, itemName));
-        this.setUnlocalizedName(this.getRegistryName().toString());
-        this.setCreativeTab(ExtrasInMinecraft.tabExtrasInMinecraft);
-    }
-
-    public String getUnlocalizedName()
-    {
-        return "item." + ExtrasInMinecraft.modid + ":" + this.name;
+        this.setRegistryName(new ResourceLocation(ExtrasInMinecraft.MOD_ID, itemName));
+        this.setCreativeTab(EIMCreativeTab.EIM_CREATIVE_TAB);
+        this.setTranslationKey(ExtrasInMinecraft.MOD_ID + ":" + itemName);
     }
 
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
@@ -56,7 +52,7 @@ public class ItemFoodBase extends ItemFood {
         {
             EntityPlayer entityplayer = (EntityPlayer)entityLiving;
             entityplayer.getFoodStats().addStats(this, stack);
-            worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+            worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
             this.onFoodEaten(stack, worldIn, entityplayer);
             entityplayer.addStat(StatList.getObjectUseStats(this));
 

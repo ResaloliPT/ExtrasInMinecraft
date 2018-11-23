@@ -1,6 +1,6 @@
 package com.resaloli.eim.ModularContent.Energy.TileEntities;
 
-import com.resaloli.eim.content.te.TileEntityBase;
+import com.resaloli.eim.content.tileentity.TileEntityBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -22,19 +22,19 @@ public class TileEntityEnergyBase extends TileEntityBase implements IEnergyStora
 
     public TileEntityEnergyBase(int capacity, int maxReceive, int maxExtract, int energy){
         super(2);
-        this.capacity = capacity;
-        this.maxReceive = maxReceive;
-        this.maxExtract = maxExtract;
-        this.canReceiveBol = maxReceive > 0 ? true : false;
-        this.canExtractBol = maxExtract > 0 ? true : false;
-        this.energy = Math.max(0 , Math.min(capacity, energy));
+        TileEntityEnergyBase.capacity = capacity;
+        TileEntityEnergyBase.maxReceive = maxReceive;
+        TileEntityEnergyBase.maxExtract = maxExtract;
+        canReceiveBol = maxReceive > 0;
+        canExtractBol = maxExtract > 0;
+        TileEntityEnergyBase.energy = Math.max(0, Math.min(capacity, energy));
     }
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
         if (!canReceive())
             return 0;
-        if (simulate == false) this.energy = maxReceive+this.energy;
+        if (simulate == false) energy = maxReceive + energy;
         return maxReceive;
     }
 
@@ -43,7 +43,7 @@ public class TileEntityEnergyBase extends TileEntityBase implements IEnergyStora
         if (!canExtract())
             return 0;
 
-        if (simulate == false) this.energy = maxExtract+this.energy;
+        if (simulate == false) energy = maxExtract + energy;
         return maxExtract;
     }
 
@@ -59,16 +59,16 @@ public class TileEntityEnergyBase extends TileEntityBase implements IEnergyStora
 
     @Override
     public boolean canExtract() {
-        return this.canExtractBol;
+        return canExtractBol;
     }
 
     @Override
     public boolean canReceive() {
-        return this.canReceiveBol;
+        return canReceiveBol;
     }
 
     public IItemHandler getItemHandler(){
-        return super.handler;
+        return super.getHandler();
     }
 
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -79,23 +79,23 @@ public class TileEntityEnergyBase extends TileEntityBase implements IEnergyStora
 
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityEnergy.ENERGY)
-            return (T) this.Enerhandler;
+            return (T) Enerhandler;
         return super.getCapability(capability, facing);
     }
 
     public int produceEnergy(int energyPerTick){
         if ((this.getMaxEnergyStored() -  this.getEnergyStored()) > energyPerTick){
             //Save default maxReceive
-            this.canReceiveBol = true;
+            canReceiveBol = true;
 
             //Temporary add max int to remove producing limitations
-            this.maxReceive = Int.MaxValue();
+            maxReceive = Int.MaxValue();
 
             //Add new Energy
             int producedEnergy = this.receiveEnergy(energyPerTick, false);
 
             //Restore default maxReceive
-            this.canReceiveBol = false;
+            canReceiveBol = false;
 
             //return produced energy
             return  producedEnergy;
@@ -104,10 +104,10 @@ public class TileEntityEnergyBase extends TileEntityBase implements IEnergyStora
     }
 
     public int getEnergyScaled(int pixels){
-        if (this.energy == 0){
+        if (energy == 0) {
             return 0;
         }else{
-            return (this.energy * pixels)/this.capacity;
+            return (energy * pixels) / capacity;
         }
     }
 }

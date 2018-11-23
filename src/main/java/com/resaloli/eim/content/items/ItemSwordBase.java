@@ -1,7 +1,6 @@
 package com.resaloli.eim.content.items;
 
 import com.google.common.collect.Multimap;
-import com.resaloli.eim.ExtrasInMinecraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,21 +11,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemSwordBase extends Item {
+public class ItemSwordBase extends ItemBase {
     private final float attackDamage;
     private final Item.ToolMaterial material;
     private final int enchantability;
 
     public ItemSwordBase(String name, Item.ToolMaterial material, int maxUsesMulti, float dmgMulti, int enchantability){
-        this.setRegistryName(new ResourceLocation(ExtrasInMinecraft.modid, name));
-        this.setUnlocalizedName(this.getRegistryName().toString());
-        this.setCreativeTab(ExtrasInMinecraft.tabExtrasInMinecraft);
+        super(name);
         this.material = material;
         this.maxStackSize = 1;
         this.setMaxDamage(material.getMaxUses() * maxUsesMulti);

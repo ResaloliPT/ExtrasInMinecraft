@@ -1,4 +1,4 @@
-package com.resaloli.eim.content.te;
+package com.resaloli.eim.content.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -10,7 +10,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityBase extends TileEntity implements ICapabilityProvider {
 
-    public ItemStackHandler handler;
+    private ItemStackHandler handler;
 
     public TileEntityBase(int slots){
         this.handler = new ItemStackHandler(slots);
@@ -30,5 +30,9 @@ public class TileEntityBase extends TileEntity implements ICapabilityProvider {
             return (T) handler;
         }
         return super.getCapability(capability, facing);
+    }
+
+    public IItemHandler getHandler() {
+        return handler;
     }
 }

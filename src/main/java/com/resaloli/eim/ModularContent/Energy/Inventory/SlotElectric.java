@@ -1,6 +1,5 @@
 package com.resaloli.eim.ModularContent.Energy.Inventory;
 
-import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
@@ -18,9 +17,7 @@ public class SlotElectric extends SlotItemHandler {
 
     public boolean isItemValid(ItemStack stack) {
         //TODO: Check what is canonical to place here
-        if ((stack.getItem() instanceof IEnergyStorage) || (stack.getItem() instanceof IEnergyContainerItem) && index == 0)
-            return true;
-        return false;
+        return (stack.getItem() instanceof IEnergyStorage) /*|| (stack.getItem() instanceof IEnergyContainerItem) */ && index == 0;
     }
 
     public int getItemStackLimit(ItemStack stack) {

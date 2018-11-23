@@ -26,8 +26,8 @@ public class BlockDirectional extends BlockBase implements IBlockProperties {
 
     private Material material;
 
-    public BlockDirectional(Material material, String name, boolean hasTE) {
-        super(material, name, hasTE);
+    public BlockDirectional(Material material, String name) {
+        super(material, name);
         this.material = material;
     }
 
@@ -77,7 +77,7 @@ public class BlockDirectional extends BlockBase implements IBlockProperties {
     }
 
     @Override
-    public MapColor getMapColor(IBlockAccess p_185909_1_, BlockPos p_185909_2_) {
+    public MapColor getMapColor(IBlockAccess blockAccess, BlockPos blockPos) {
         return null;
     }
 
@@ -172,7 +172,7 @@ public class BlockDirectional extends BlockBase implements IBlockProperties {
     }
 
     @Override
-    public EnumPushReaction getMobilityFlag() {
+    public EnumPushReaction getPushReaction() {
         return null;
     }
 
@@ -217,23 +217,36 @@ public class BlockDirectional extends BlockBase implements IBlockProperties {
         return null;
     }
 
+
     /**
      * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
      */
     @Override
     public boolean isTopSolid() {
+        return false;
+    }
+
+
+    /**
+     * Checks if side is solid
+     *
+     * @param world the world
+     * @param pos   the block position
+     * @param side  the side of the block
+     * @return true if solid
+     */
+    @Override
+    public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
         return true;
     }
+
 
     @Override
     public boolean doesSideBlockRendering(IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
 
-    @Override
-    public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
-        return true;
-    }
+
 
     @Override
     public boolean doesSideBlockChestOpening(IBlockAccess world, BlockPos pos, EnumFacing side) {

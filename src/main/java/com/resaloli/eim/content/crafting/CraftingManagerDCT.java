@@ -47,7 +47,7 @@ public class CraftingManagerDCT extends CraftingManager {
             }
         }
 
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(invCrafting.getSizeInventory(), ItemStack.EMPTY);
+        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(invCrafting.getSizeInventory(), ItemStack.EMPTY);
 
         for (int i = 0; i < nonnulllist.size(); ++i) {
             nonnulllist.set(i, invCrafting.getStackInSlot(i));

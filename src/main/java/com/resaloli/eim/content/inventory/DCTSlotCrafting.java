@@ -82,7 +82,7 @@ public class DCTSlotCrafting extends Slot
         if (irecipe != null && !irecipe.isDynamic())
         {
             this.player.unlockRecipes(Lists.newArrayList(irecipe));
-            inventorycraftresult.setRecipeUsed((IRecipe)null);
+            inventorycraftresult.setRecipeUsed(null);
         }
     }
 

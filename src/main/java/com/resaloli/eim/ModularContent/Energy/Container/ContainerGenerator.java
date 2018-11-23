@@ -1,24 +1,19 @@
 package com.resaloli.eim.ModularContent.Energy.Container;
 
-import com.resaloli.eim.ModularContent.Energy.Blocks.EIMEnerBlocks;
 import com.resaloli.eim.ModularContent.Energy.Inventory.SlotElectric;
 import com.resaloli.eim.ModularContent.Energy.Inventory.SlotGeneratorFuel;
 import com.resaloli.eim.ModularContent.Energy.TileEntities.TileEntityGenerator;
-import com.resaloli.eim.content.blocks.EIMBlocks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 
 public class ContainerGenerator extends Container {
 
@@ -34,7 +29,7 @@ public class ContainerGenerator extends Container {
         this.world = worldIn;
         this.player = playerInventory.player;
         this.pos = posIn;
-        this.te = (TileEntityGenerator)worldIn.getTileEntity(posIn);
+        te = (TileEntityGenerator) worldIn.getTileEntity(posIn);
 
         //Rechargeable slot
         this.addSlotToContainer(new SlotElectric(te.getItemHandler(), 0, 56, 17));
@@ -60,7 +55,7 @@ public class ContainerGenerator extends Container {
     public void addListener(IContainerListener listener)
     {
         super.addListener(listener);
-        listener.sendAllWindowProperties(this, this.te);
+        listener.sendAllWindowProperties(this, te);
     }
 
     public boolean canInteractWith(EntityPlayer playerIn)
@@ -77,25 +72,25 @@ public class ContainerGenerator extends Container {
         {
             IContainerListener icontainerlistener = this.listeners.get(i);
 
-            if (this.burnTime != this.te.getField(1))
+            if (burnTime != te.getField(1))
             {
-                icontainerlistener.sendWindowProperty(this, 1, this.te.getField(1));
+                icontainerlistener.sendWindowProperty(this, 1, te.getField(1));
             }
 
-            if (this.currentItemBurnTime != this.te.getField(2))
+            if (currentItemBurnTime != te.getField(2))
             {
-                icontainerlistener.sendWindowProperty(this, 2, this.te.getField(2));
+                icontainerlistener.sendWindowProperty(this, 2, te.getField(2));
             }
         }
 
-        this.burnTime = this.te.getField(1);
-        this.currentItemBurnTime = this.te.getField(2);
+        burnTime = te.getField(1);
+        currentItemBurnTime = te.getField(2);
     }
 
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data)
     {
-        this.te.setField(id, data);
+        te.setField(id, data);
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)

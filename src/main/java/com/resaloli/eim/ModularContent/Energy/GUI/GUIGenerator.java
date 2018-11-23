@@ -1,18 +1,17 @@
 package com.resaloli.eim.ModularContent.Energy.GUI;
 
-import com.resaloli.eim.CONSTANTS;
+import com.resaloli.eim.ExtrasInMinecraft;
 import com.resaloli.eim.ModularContent.Energy.Container.ContainerGenerator;
 import com.resaloli.eim.ModularContent.Energy.TileEntities.TileEntityGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class GUIGenerator  extends GuiContainer {
-    public ResourceLocation GUIGeneratorRes = new ResourceLocation(CONSTANTS.MOD_ID, "textures/gui/eim_generator.png");
+    public ResourceLocation GUIGeneratorRes = new ResourceLocation(ExtrasInMinecraft.MOD_ID, "textures/gui/eim_generator.png");
 
     public static TileEntityGenerator te;
 
@@ -20,7 +19,7 @@ public class GUIGenerator  extends GuiContainer {
         super(new ContainerGenerator(playerInv, world, pos));
         this.xSize = 175;
         this.ySize = 165;
-        this.te = (TileEntityGenerator)world.getTileEntity(pos);
+        te = (TileEntityGenerator) world.getTileEntity(pos);
     }
 
     protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
@@ -29,7 +28,7 @@ public class GUIGenerator  extends GuiContainer {
         this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         //Draw Burn Progress
-        int rBurnTimeScaled = this.te.getBurnTimeRemainingScaled(13);
+        int rBurnTimeScaled = te.getBurnTimeRemainingScaled(13);
         this.drawTexturedModalRect(guiLeft + 57, guiTop + 50-rBurnTimeScaled, 176, 13-rBurnTimeScaled, 14, rBurnTimeScaled );
 
         //Draw Energy Storage

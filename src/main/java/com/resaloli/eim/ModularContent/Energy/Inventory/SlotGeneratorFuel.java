@@ -1,9 +1,7 @@
 package com.resaloli.eim.ModularContent.Energy.Inventory;
 
-import com.resaloli.eim.content.te.TileEntityBase;
 import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;

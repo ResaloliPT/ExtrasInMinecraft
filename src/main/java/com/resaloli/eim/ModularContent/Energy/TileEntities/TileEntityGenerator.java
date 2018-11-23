@@ -1,23 +1,17 @@
 package com.resaloli.eim.ModularContent.Energy.TileEntities;
 
-import cofh.redstoneflux.api.IEnergyContainerItem;
-import com.resaloli.eim.CONSTANTS;
+import com.resaloli.eim.ModConfigs;
 import com.resaloli.eim.ModularContent.Energy.Blocks.BlockGenerator;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.world.World;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
-
-import javax.annotation.Nullable;
 
 public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedInventory, ITickable {
 
@@ -32,13 +26,13 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
     public TileEntityGenerator(int energyPerTick)
     {
         super(10000, 0, 1024, 0);
-        this.handler = getItemHandler();
-        this.energyPerTick = energyPerTick;
+        handler = getItemHandler();
+        TileEntityGenerator.energyPerTick = energyPerTick;
     }
 
     public TileEntityGenerator(){
         //Hardcoded for now
-        this(CONSTANTS.GeneratorEnergyPerTick);
+        this(ModConfigs.GeneratorEnergyPerTick);
     }
 
 
@@ -51,17 +45,17 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
             System.out.println("Generator burnTime: "+this.burnTime);
             System.out.println("Generator currBurnTime: "+this.currBurnTime);*/
             if (this.world.isRemote){
-                if (this.isBurning)
+                if (isBurning)
                 {
 
                     //BurnFuel
-                    --this.burnTime;
-                    this.currBurnTime = this.maxBurnTime - this.burnTime;
-                    if (this.burnTime == 0){
-                        this.isBurning = false;
-                        this.burnTime = 0;
-                        this.maxBurnTime = 0;
-                        this.currBurnTime = 0;
+                    --burnTime;
+                    currBurnTime = maxBurnTime - burnTime;
+                    if (burnTime == 0) {
+                        isBurning = false;
+                        burnTime = 0;
+                        maxBurnTime = 0;
+                        currBurnTime = 0;
 
                         this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).withProperty(BlockGenerator.ACTIVATED, false), 2);
                     }
@@ -69,21 +63,21 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
                     //Gen Power
                     int extract = getEnergyStored();
                     extractEnergy(extract, false);
-                    if (getMaxEnergyStored() - getEnergyStored() > this.energyPerTick) {
-                        produceEnergy(this.energyPerTick);
+                    if (getMaxEnergyStored() - getEnergyStored() > energyPerTick) {
+                        produceEnergy(energyPerTick);
                         this.markDirty();
                         this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).withProperty(BlockGenerator.ACTIVATED, true), 2);
-                        this.isBurning = true;
+                        isBurning = true;
                     } else {
                         produceEnergy(getMaxEnergyStored() - getEnergyStored());
                         this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).withProperty(BlockGenerator.ACTIVATED, false), 2);
-                        this.isBurning = false;
+                        isBurning = false;
                     }
                 }
             }
 
-            if (!this.isBurning && !(this.getMaxEnergyStored() == this.getEnergyStored())){
-                ItemStack iStack = this.handler.getStackInSlot(1);
+            if (!isBurning && !(this.getMaxEnergyStored() == this.getEnergyStored())) {
+                ItemStack iStack = handler.getStackInSlot(1);
                 if (iStack.getCount() > 0 && !(iStack.equals(ItemStack.EMPTY))){
                     int itemBurnTime = TileEntityFurnace.getItemBurnTime(iStack);
                     //TODO: Add Augment to also change the energyPerTick relating to burnTime( the more burn time the lower the TickRate, and the less burn time the more tickrate)
@@ -91,9 +85,9 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
                     this.decrStackSize(1, 1);
 
                     //Default Generator Doubles burntime
-                    this.burnTime = itemBurnTime*2;
-                    this.maxBurnTime = this.burnTime*2;
-                    this.isBurning = true;
+                    burnTime = itemBurnTime * 2;
+                    maxBurnTime = burnTime * 2;
+                    isBurning = true;
                 }
             }
         }
@@ -106,9 +100,9 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
            case 0:
                return isBurning ? 1 : 0;
            case 1:
-               return this.burnTime;
+               return burnTime;
            case 2:
-               return this.currBurnTime;
+               return currBurnTime;
            default:
                return 404;
        }
@@ -117,41 +111,37 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
     public void setField(int id, int value) {
         switch (id){
             case 0:
-                if (value == 0){
-                    isBurning = true;
-                }else{
-                    isBurning = false;
-                }
+                isBurning = value == 0;
             case 1:
-                this.burnTime = value;
+                burnTime = value;
             case 2:
-                this.currBurnTime = value;
+                currBurnTime = value;
         }
     }
 
     public int getBurnTimeRemainingScaled(int pixels){
-        if (this.maxBurnTime == 0 || this.currBurnTime == 0 || isBurning == false)
+        if (maxBurnTime == 0 || currBurnTime == 0 || isBurning == false)
             return 0;
-        return (int)Math.ceil(((double)this.currBurnTime * pixels) / (double)this.maxBurnTime);
+        return (int) Math.ceil(((double) currBurnTime * pixels) / (double) maxBurnTime);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
-        this.isBurning = nbt.getBoolean("isBurning");
-        this.burnTime = nbt.getInteger("burnTime");
-        this.maxBurnTime = nbt.getInteger("maxBurnTime");
-        this.currBurnTime = nbt.getInteger("currBurnTime");
+        isBurning = nbt.getBoolean("isBurning");
+        burnTime = nbt.getInteger("burnTime");
+        maxBurnTime = nbt.getInteger("maxBurnTime");
+        currBurnTime = nbt.getInteger("currBurnTime");
         super.readFromNBT(nbt);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setBoolean("isBurning", this.isBurning);
-        nbt.setInteger("burnTime", this.burnTime);
-        nbt.setInteger("maxBurnTime", this.maxBurnTime);
-        nbt.setInteger("currBurnTime", this.currBurnTime);
+        nbt.setBoolean("isBurning", isBurning);
+        nbt.setInteger("burnTime", burnTime);
+        nbt.setInteger("maxBurnTime", maxBurnTime);
+        nbt.setInteger("currBurnTime", currBurnTime);
         return super.writeToNBT(nbt);
     }
 
@@ -173,10 +163,8 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
     public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
         if ((TileEntityFurnace.isItemFuel(itemStackIn) || SlotFurnaceFuel.isBucket(itemStackIn)) && index == 1)
             return true;
-        if ((itemStackIn.getItem() instanceof IEnergyStorage) || (itemStackIn.getItem() instanceof IEnergyContainerItem) && index == 0)
-            return true;
+        return (itemStackIn.getItem() instanceof IEnergyStorage) /*|| (itemStackIn.getItem() instanceof IEnergyContainerItem)*/ && index == 0;
 
-        return false;
     }
 
     /**
@@ -194,7 +182,7 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
      * Returns the number of slots in the inventory.
      */
     public int getSizeInventory() {
-        return this.handler.getSlots();
+        return handler.getSlots();
     }
 
     public boolean isEmpty() {
@@ -207,13 +195,13 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
      * @param index
      */
     public ItemStack getStackInSlot(int index) {
-        return this.handler.getStackInSlot(index);
+        return handler.getStackInSlot(index);
     }
 
     public ItemStack decrStackSize(int index, int count) {
         ItemStack itemStack = this.getStackInSlot(index);
         if (itemStack.getCount() == 1){
-            this.handler.insertItem(index, ItemStack.EMPTY, false);
+            handler.insertItem(index, ItemStack.EMPTY, false);
             return ItemStack.EMPTY;
         }
         itemStack.setCount(itemStack.getCount()-count);
@@ -283,7 +271,7 @@ public class TileEntityGenerator extends TileEntityEnergyBase implements ISidedI
     }
 
     public String getName() {
-        return this.CustomName;
+        return CustomName;
     }
 
     public boolean hasCustomName() {

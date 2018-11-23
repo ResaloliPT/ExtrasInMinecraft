@@ -16,13 +16,13 @@ public class WellFedEffect extends Potion{
     public WellFedEffect(boolean isBadEffectIn, int liquidColorIn) {
         super(isBadEffectIn, liquidColorIn);
         super.setPotionName("effect.wellFed");
-        super.setRegistryName(ExtrasInMinecraft.modid, "wellFed");
+        super.setRegistryName(ExtrasInMinecraft.MOD_ID, "wellFed");
     }
 
 
     public Potion setIconIndex(int x, int y){
         super.setIconIndex(x, y);
-        return (Potion)this;
+        return this;
     }
 
     public int getStatusIconIndex()
